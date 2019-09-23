@@ -1,0 +1,385 @@
+*{
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  line-height: 1.15;
+  background-color: #ccc8;
+}
+.container {
+  max-width: 90%;
+  margin: 0 auto;
+}
+input {
+  max-width: 100%;
+}
+
+
+/* style range */
+input[type=range] {
+  -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+  /*width: 100%; /* Specific width is required for Firefox. */
+  background: transparent; /* Otherwise white in Chrome */
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+input[type=range]:focus {
+  outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+}
+
+input[type=range]::-ms-track {
+  /* width: 100%; */
+  cursor: pointer;
+
+  /* Hides the slider so custom styles can be added */
+  background: transparent; 
+  border-color: transparent;
+  color: transparent;
+}
+/* ================ */
+/* Special styling for WebKit/Blink */
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 1px solid orangered;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #ffffff;
+  cursor: pointer;
+  margin-top: -7px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+  box-shadow: 1px 1px 1px orangered, 0px 0px 2px #0d0d0d; /* Add cool effects to your sliders! */
+}
+
+/* All the same stuff for Firefox */
+input[type=range]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+/* All the same stuff for IE */
+input[type=range]::-ms-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+/* styled ===================================== track*/
+input[type=range]::-webkit-slider-runnable-track {
+  /* width: 100%; */
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #5559, 0px 0px 1px #5559;
+  background: orangered;
+  border-radius: 1.3px;
+  border: 0.2px solid #5559;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #ee4500;
+}
+
+input[type=range]::-moz-range-track {
+  /* width: 100%; */
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #5559, 0px 0px 1px #5559;
+  background: orangered;
+  border-radius: 1.3px;
+  border: 0.2px solid #5559;
+}
+
+input[type=range]::-ms-track {
+  /* width: 100%; */
+  height: 8.4px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  border-width: 16px 0;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #ee4500;
+  border: 0.2px solid #5559;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #5559, 0px 0px 1px #5559;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: orangered;
+}
+input[type=range]::-ms-fill-upper {
+  background: orangered;
+  border: 0.2px solid #5559;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #5559, 0px 0px 1px #5559;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #ee4500;
+}
+
+/* style range end */
+
+/* styled radiobutton ======================*/
+input[type='radio']{
+  opacity: 0;
+    
+    float: left;
+    width: 18px;
+}
+input[type='radio'] + label {
+    margin: 0;
+    clear: none;
+    
+    /* Left padding makes room for image */
+    padding: 5px 0 4px 24px;
+
+    /* Make look clickable because they are */
+    cursor: pointer;
+    position: relative;
+    
+    
+    /* background: url(off.png) left center no-repeat;  */
+}
+input[type='radio']+ label:before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 0;
+  border-radius: 50%;
+  border: 2px solid orangered;
+}
+
+input[type='radio']:checked + label:before {
+  background-color: orangered;
+}
+
+
+
+
+/* styled radiobutton end ========================*/
+.section {
+  margin: 15px 0;
+  border-bottom: 1px solid #5559;
+}
+.section__header {
+  text-align: center;
+  color:#5559;
+  text-transform: uppercase;
+  margin-bottom: 30px; 
+  border-bottom: 1px dotted #5555;
+}
+.main-head {
+  text-align: center;
+}
+.col-md-6 {
+  /* outline: 1px solid red; */
+}
+
+.row .row-setting {
+  /* outline: 1px dotted blue; */
+  min-height: 50px;
+  margin: 0 0 15px 0;
+}
+
+.label--setting {
+  text-transform: uppercase;
+}
+.large {
+  font-size: 20px;
+}
+
+.input__val {
+  width: 90%;
+  margin: 0 auto;
+  /* max-width: 800px; */
+  position: relative;
+}
+
+.wrap-input__val {
+    min-height: 50px;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    -ms-align-items: flex-end;
+    align-items: flex-end;
+}
+.input__val:before {
+  content: attr(min);
+  position: absolute;
+  left: 0;
+  bottom: 10px;
+  font-size: 24px;
+  color: #5559;
+}
+
+.input__val:after {
+  content: attr(max);
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+  font-size: 24px;
+  color: #5559;
+}
+
+.input_start {
+  width: 90%;
+  margin: 0 auto;
+  outline: none;
+  border: none;
+  box-shadow:0 0 2px 0 #8B42D6;
+  /* background-color: #4445; */
+  border-radius: 5px;
+  font-size: 20px;
+  line-height: 2;
+  color: orangered;
+  text-align: center;
+  display: block;
+
+}
+
+.input_start:hover,
+.input_start:focus {
+  box-shadow: inset  1px 1px 4px 0 #8B42D6; 
+} 
+
+
+.title__range {
+  font-size: 20px;
+  /* height: 40px; */
+  padding: 0 15px;
+}
+
+.wrap-digit_val {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+ 
+  align-items: center;
+  border-radius:5px ;
+  background-color: #4445;
+  margin-bottom: 15px;
+}
+
+.wrap-input__radio {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  justify-content: flex-start;
+}
+.input__radio {
+  display:block;
+  margin: 10px 30px;
+}
+
+.label-input__radio {
+  margin: 0;
+}
+
+.digit_val {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 2;
+  color: orangered;
+  /* background-color: #4445;  */
+  width: 100%;
+  padding: auto ;
+  /* border-radius:5px ; */ 
+  text-align: center;
+  /* margin-bottom: 15px; */
+
+}
+
+.digit_val--start {
+  color: #8B42D6;
+  max-width: 100%;
+}
+
+
+.row__flex {
+  width: 100%;
+  margin-bottom: 15px;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title__range {
+  text-transform: uppercase;
+  font-size: 16px;
+}
+
+.border-grey {
+  border: 2px solid #4445;
+  border-radius: 5px;
+}
+.row-out {
+  outline: 1px solid red;
+}
+.setting__text {
+  padding: 5px;
+  background-color: #4445;
+  border-radius: 5px;
+  text-transform: uppercase;
+  color: orangered;
+  font-weight: 600;
+}
+
+.col-tax-item {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  border-radius: 5px;
+  background-color: #55f7;
+  margin-bottom: 15px;
+  align-items: center;
+}
+
+.col-tax-red {
+  background-color: greenyellow;
+  font-weight: 700;
+
+}
+.wrap-list-workers {
+  min-height: 30px;
+}
+
+.list-workers {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 20px ;
+ 
+}
+.worker {
+  background: url(worker.svg) no-repeat center;
+  width: 20px;
+  height: 20px;
+  margin-left: 15px;
+  font-size: 0;
+  margin-bottom: 5px;
+}

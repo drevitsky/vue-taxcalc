@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue Tax calc Налоговый эквалайзер :)</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+
+  <h1 class="main-head">Налоговый эквалайзер :)</h1>
+  <div id="app">
+
+<div class="container">
+  
+  <section class="section section--setting">
+    <div class="section__header">
+      <h2 class="section__title">
+        Налоговая база
+      </h2>
+      <p class="section__sudtitle">
+        Введите актуальные ставки и тарифы
+      </p>
+    </div>
+
+    <div class="row mb-5">
+      <!-- minSalary -->
+      <div class="col-md-4 text-center">
+        <div class="row ">
+          <div class="col-md-6 wrap-digit_input ">
+            <div class="row row-setting justify-content-center">
+              <label class="label label--setting" for="minSalary">минимальная <br>зарплата</label>
+            </div>
+            <div class="row row-setting">
+              <input class="input_start" id="minSalary" type="text" v-model='minSalary' required size="8">
+            </div>
+          </div>
+          <div class="col-md-6 wrap-digit_val">
+            <div class="digit_val digit_val--start">{{minSalary}} грн</div>
+          </div>
+        </div>        
+      </div>
+      <!-- minSalary end-->
+
+
+      <!-- taxESV -->
+      <div class="col-md-4 text-center">
+        <div class="row">
+          <div class="col-md-6 wrap-digit_input">
+            <div class="row row-setting justify-content-center">
+              <label class="label label--setting" for="taxESV">ЕСВ</label>
+            </div>
+            <div class="row row-setting">
+              <input class="input_start" id="taxESV" type="text" v-model='taxESV' required size="8">
+            </div>
+          </div>
+          <div class="col-md-6 wrap-digit_val">
+            <div class="digit_val digit_val--start">{{taxESV}} %</div>
+          </div>
+        </div>        
+      </div>
+      <!-- taxESV end-->
+      
+      <!-- taxDFL -->
+      <div class="col-md-4 text-center">
+        <div class="row">
+          <div class="col-md-6 wrap-digit_input">
+            <div class="row row-setting justify-content-center">
+              <label class="label label--setting" for="taxDFL">НДФЛ</label>
+            </div>
+            <div class="row row-setting">
+              <input class="input_start" id="taxDFL" type="text" v-model='taxDFL' required size="8">
+            </div>
+          </div>
+          <div class="col-md-6 wrap-digit_val">
+            <div class="digit_val digit_val--start">{{taxDFL}} %</div>
+          </div>
+        </div>        
+      </div>
+      <!-- taxDFL end-->
+
+
+
+
+  </section>
+    
+  <section class="section section--setting">
+    <div class="section__header">
+      <h2 class="section__title">
+        Доходы
+      </h2>
+      <p class="section__sudtitle">
+        Введите показатели
+      </p>
+    </div>
+    
+    <div class="row mb-5">
+      <div class="col col-md-6 border-grey">
+        <h3 class="title__range">Валовый доход (оборот за год)</h3>
+        <div class="row">
+
+          <div class="col-md-8 border-grey">
+            
+              <div class="w">
+                <input class="input_start" type="text" v-model='revenue'>
+              </div>
+
+              <div class="wrap-input__val">
+                <input class="input__val" type="range" min="0" max="2500000" step="10000" v-model='revenue'>
+              </div>
+              
+                       
+          </div>
+
+          <div class="col-md-4 wrap-digit_val ">
+            <div class="digit_val digit_val--start">{{revenue}} <br>гривен</div>
+          </div>         
+          
+        </div>        
+        
+      </div>
+
+      <div class="col col-md-6">
+        <div class="row row__flex">
+          <h3 class="title__range">Тип деятельности</h3>
+          
+          <!-- <span class="digit_val">{{exmargin}} %</span> -->
+        </div>
+        <div class="wrap-input__radio">
+          <input class="input__radio" type="radio" id="service" value="service" v-model="picked">
+          <label class="label-input__radio" for="service">услуги</label>
+        </div>
+        
+        <div class="wrap-input__radio">
+          <input class="input__radio" type="radio" id="trade" value="trade" v-model="picked">
+          <label class="label-input__radio"  for="trade">торговля</label>
+        </div>
+
+         
+      </div>
+    </div>
+      
+    <div class="row mb-5"> 
+
+      <div v-if="picked === 'trade'" class="col col-md-6">
+        <div class="row row__flex">
+          <h3 class="title__range">Средняя наценка (маржа)</h3>
+          
+          <div class="digit_val text-center">{{exmargin}} % {{marginMessage()}}</div>
+        </div>
+        <input class="input__val " type="range" min="0" max="200" v-model='exmargin'>
+      </div>
+
+      <div v-if="picked === 'trade'" class="col col-md-6">
+        <div class="row row__flex">
+          <h3 class="title__range">Ваша прибыль</h3>
+          
+          <span class="digit_val text-center">{{profit()}} грн</span>
+        </div>
+        <input class="input__val " type="range" min="0" max="200" v-model='exmargin'>
+      </div>
+
+      <div v-if="picked === 'service'" class="col col-md-12 border-grey">
+        <div class="row row__flex  justify-content-center">
+          <h3 class="title__range pt-3">Ваша прибыль равна вашему доходу</h3>
+          
+          <span class="digit_val text-center">{{revenue}} грн</span>
+        </div>
+        
+      </div>
+    </div>  
+   
+    
+
+  </section>  
+
+  <section class="section section--setting">
+    <div class="section__header">
+      <h2 class="section__title">
+        Расходы
+      </h2>
+      <p class="section__sudtitle">
+        Введите показатели
+      </p>
+    </div>
+    <div class="row mb-5">
+      <div class="col col-md-4 pt-3 text-center border-grey">
+        <div class="row ">
+          <h3 class="title__range">Наёмные рабочие</h3>
+        </div>
+        
+        <div class="row mb-5">         
+          
+          <div class="col-12">
+            <div class="digit_val col-md-auto mx-auto mb-3">{{employee}} человек</div>
+            
+            
+            
+            <input class="input__val" type="range" min="0" max="10" step="1" v-model='employee'  v-on:input="toggleWorker()">
+            <div class="row wrap-list-workers">
+              <ul id="example-1" class="list-workers">
+                <li class="worker" v-for="item in items">
+                  {{ item.worker }}
+                </li>
+              </ul>
+            </div>
+            
+          </div>
+                  
+        
+        </div>
+      </div>
+      
+      <div class="col col-md-4 pt-3 text-center border-grey">
+
+        <div class="row ">
+          <h3 class="title__range">Средняя зарплата в месяц (официальная)</h3>
+        </div>
+        
+        <div class="row">
+          <div class="col-12">
+            <div class="row justify-content-around mb-3 ">
+
+              <div class="col-md-6 justify-content-center">
+                <input class="input_start" type="text" v-model='salary'>
+              </div>
+
+              <div class="col-md-6">
+                <div class="digit_val mb-3">{{salary}} грн.</div>
+              </div>          
+                  
+            </div>
+          </div>    
+
+          <input class="input__val mb-3" type="range" min="0" max="30000" step="100" v-model='salary'>
+          <div class="col-12">
+            <div class="row justify-content-around mb-3">
+
+              <div class="col-md-6 ">
+                <div class="setting__text">Итого за год</div>
+              </div>
+              <div class="col-md-6">
+                <div class="setting__text setting__text--number">{{salary*employee*12}} грн</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col col-md-4 pt-3 text-center border-grey">
+        <div class="row ">
+          <h3 class="title__range">Средняя зарплата в месяц (реальная)</h3>
+        </div>
+        
+        <div class="row">
+          <div class="col-12">
+            <div class="row justify-content-around mb-3 ">
+
+              <div class="col-md-6 justify-content-center">
+                <input class="input_start" type="text" v-model='realSalary'>
+              </div>
+
+              <div class="col-md-6">
+                <div class="digit_val mb-3">{{realSalary}} грн.</div>
+              </div>          
+                  
+            </div>
+          </div> 
+                  
+        <input class="input__val mb-3" type="range" min="0" max="30000" step="100" v-model='realSalary' >
+        <div class="col-12">
+            <div class="row justify-content-around mb-3">
+              <div class="col-md-6 ">
+                <div class="setting__text">Итого за год</div>
+              </div>
+              <div class="col-md-6">
+                <div class="setting__text setting__text--number">{{realSalary*employee*12}} грн</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-3  col-tax-item">
+        <div class="title__range">Аренда за месяц</div>
+      </div>
+      <div class="col-3 offset-1">
+        <input class="input_start" type="text" v-model="rent">
+      </div>
+      <div class="col-3 offset-2 col-tax-item">
+      <div class="digit_val">{{rent}} грн.</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3  col-tax-item">
+        <div class="title__range">Аренда за год</div>
+      </div>
+      <div class="col-3 offset-6 col-tax-item">
+      <div class="digit_val">{{rent*12}} грн.</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3  col-tax-item">
+        <div class="title__range">Прочие расходы за месяц</div>
+      </div>
+      <div class="col-3 offset-1">
+        <input class="input_start" type="text" v-model="otherExpenses">
+      </div>
+      <div class="col-3 offset-2 col-tax-item">
+      <div class="digit_val">{{otherExpenses}} грн.</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3  col-tax-item">
+        <div class="title__range">Прочие расходы  за год</div>
+      </div>
+      <div class="col-3 offset-6 col-tax-item">
+      <div class="digit_val">{{otherExpenses*12}} грн.</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3  col-tax-item">
+        <div class="title__range">Зарплата за месяц</div>
+      </div>
+      
+      <div class="col-3 offset-6 col-tax-item">
+      <div class="digit_val">{{realSalary*employee}} грн.</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3  col-tax-item">
+        <div class="title__range">Зарплата за год</div>
+      </div>
+      <div class="col-3 offset-6 col-tax-item">
+      <div class="digit_val">{{realSalary*employee*12}} грн.</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-5  col-tax-item">
+        <div class="title__range">ЕСВ на работников в месяц</div>
+      </div>
+      <div class="col-5 offset-2 col-tax-item">
+      <div class="digit_val">{{esv}} грн.</div>
+      </div>
+    </div>
+    <div class="row">  
+      <div class="col-5 col-tax-item">
+      <div class="title__range">ЕСВ на работников за год </div>
+      </div>
+      <div class="col-5 offset-2 col-tax-item">
+      <div class="digit_val">{{(esv*12).toFixed(2)}} грн.</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-5  col-tax-item">
+        <div class="title__range">НДФЛ на работников в месяц</div>
+      </div>
+      <div class="col-5 offset-2 col-tax-item">
+      <div class="digit_val">{{salary*employee*taxDFL/100}} грн.</div>
+      </div>
+    </div>
+    <div class="row">  
+      <div class="col-5 col-tax-item">
+      <div class="title__range">НДФЛ на работников за год </div>
+      </div>
+      <div class="col-5 offset-2 col-tax-item">
+      <div class="digit_val">{{(salary*employee*taxDFL/100*12).toFixed(2)}} грн.</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-5 col-tax-item">
+        <div class="title__range">Единый налог за месяц</div>
+      </div>
+      <div class="col-5 offset-2 col-tax-item">
+        <div class="digit_val">{{taxEN}} грн.</div>
+      </div>
+    </div>  
+    <div class="row">  
+      <div class="col-5 col-tax-item">
+        <div class="title__range">Единый налог за год</div>
+      </div>
+      <div class="col-5 offset-2 col-tax-item">
+        <div class="digit_val">{{taxEN*12}} грн.</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-5 col-tax-item">
+        <div class="title__range">итого расходы за месяц</div>
+      </div>
+      <div class="col-5 offset-2 col-tax-item">
+        <div class="digit_val">{{expensesMonth()}} грн.</div>
+      </div>
+    </div>  
+    <div class="row">  
+      <div class="col-5 col-tax-item">
+        <div class="title__range">итого расходы за год</div>
+      </div>
+      <div class="col-5 offset-2 col-tax-item">
+        <div class="digit_val">{{expensesYear}} грн.</div>
+      </div>
+    </div>
+  </section>      
+
+    
+  <div class="row">
+      <div class="col-5 col-tax-item col-tax-red">
+        <div class="title__range">Чистый доход за год</div>
+      </div>
+      <div class="col-5 offset-2 col-tax-item  col-tax-red">
+        <div class="digit_val">{{clearSum}} грн.</div>
+      </div>
+    </div>  
+    <div class="row">  
+      <div class="col-5 col-tax-item  col-tax-red">
+        <div class="title__range">Чистый доход за месяц</div>
+      </div>
+      <div class="col-5 offset-2 col-tax-item  col-tax-red">
+        <div class="digit_val">{{clearSumMonth}} грн.</div>
+      </div>
+    </div>
+    
+
+  
+ 
+  
+  
+
+</div>
+
+
+
+
+  </div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="scripts.js"></script>
+</body>
+</html>
