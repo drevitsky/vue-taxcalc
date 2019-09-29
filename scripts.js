@@ -57,7 +57,8 @@ var calctax = new Vue({
     var salary = +this.salary;
     var rent = +this.rent;
     var taxEN = +this.taxEN;
-    var exp = rent + esv + otherExpenses + realSalary*employee + dfl + taxEN;
+    var esvFlp =+this.esvFlp;
+    var exp = rent + esv + otherExpenses + realSalary*employee + dfl + taxEN + esvFlp;
      // console.log(dfl )
      return exp.toFixed(2)
   },

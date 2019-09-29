@@ -354,7 +354,7 @@ input[type='radio']:checked + label:before {
   display: -o-flex;
   display: flex;
   border-radius: 5px;
-  background-color: #55f7;
+  background-color: #a1a1ca80;
   margin-bottom: 15px;
   align-items: center;
 }
