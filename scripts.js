@@ -69,14 +69,22 @@ var calctax = new Vue({
       var newLength = this.employee
       console.log(length)
       if(newLength > length){
-        this.items.push({
+        var delta = newLength - length;
+        for (i = 0; i < delta; i++){
+          this.items.push({
           worker:this.employee
         })
+        }
+        
       }
       else if (newLength < length) {
-        this.items.pop({
+        var delta = length - newLength;
+        for (i = 0; i < delta; i++){
+          this.items.pop({
           worker:''
         })
+        }
+        
       }
         
         
