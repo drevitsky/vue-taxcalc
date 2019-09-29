@@ -4,6 +4,7 @@ var calctax = new Vue({
     minSalary:4173,
     taxESV:22,
     taxDFL:18,
+    rateEN:20,
     revenue:500000,
     exmargin:20,
     realSalary:8000,
@@ -55,7 +56,8 @@ var calctax = new Vue({
     var dfl = +this.dfl;
     var salary = +this.salary;
     var rent = +this.rent;
-    var exp = rent + esv + otherExpenses + realSalary*employee + dfl;
+    var taxEN = +this.taxEN;
+    var exp = rent + esv + otherExpenses + realSalary*employee + dfl + taxEN;
      // console.log(dfl )
      return exp.toFixed(2)
   },
@@ -99,8 +101,11 @@ var calctax = new Vue({
    
     esv: function() {
       if (this.salary > this.minSalary) 
-      return (this.employee*this.salary*22/100).toFixed(2)
-    else return (this.employee*this.minSalary*22/100).toFixed(2)
+      return (this.employee*this.salary*this.taxESV/100).toFixed(2)
+    else return (this.employee*this.minSalary*this.taxESV/100).toFixed(2)
+    },
+    esvFlp: function() {
+      return (this.minSalary*this.taxESV/100).toFixed(2)
     },
 
     dfl: function() {
@@ -109,7 +114,7 @@ var calctax = new Vue({
     else return (this.employee*this.minSalary*this.taxDFL/100).toFixed(2)
     },
     taxEN: function() {
-      return this.minSalary*0.2
+      return this.minSalary*this.rateEN/100
     },
     expensesYear: function() {
       return (this.expensesMonth()*12).toFixed(2)

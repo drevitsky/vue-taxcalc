@@ -26,11 +26,11 @@
 
     <div class="row mb-5">
       <!-- minSalary -->
-      <div class="col-md-4 text-center">
+      <div class="col-md-3 col-sm-6 col-xs-12 text-center">
         <div class="row ">
           <div class="col-md-6 wrap-digit_input ">
             <div class="row row-setting justify-content-center">
-              <label class="label label--setting" for="minSalary">минимальная <br>зарплата</label>
+              <label class="label label--setting text-wrap w-100 text-break" for="minSalary" title="минимальная зарплата">мин зарплата</label>
             </div>
             <div class="row row-setting">
               <input class="input_start" id="minSalary" type="text" v-model='minSalary' required size="8">
@@ -45,11 +45,11 @@
 
 
       <!-- taxESV -->
-      <div class="col-md-4 text-center">
+      <div class="col-md-3 col-sm-6 col-xs-12  text-center">
         <div class="row">
           <div class="col-md-6 wrap-digit_input">
             <div class="row row-setting justify-content-center">
-              <label class="label label--setting" for="taxESV">ЕСВ</label>
+              <label class="label label--setting" for="taxESV" title="действующая ставка ЕСВ в %">ЕСВ</label>
             </div>
             <div class="row row-setting">
               <input class="input_start" id="taxESV" type="text" v-model='taxESV' required size="8">
@@ -63,11 +63,11 @@
       <!-- taxESV end-->
       
       <!-- taxDFL -->
-      <div class="col-md-4 text-center">
+      <div class="col-md-3 col-sm-6 col-xs-12  text-center">
         <div class="row">
           <div class="col-md-6 wrap-digit_input">
             <div class="row row-setting justify-content-center">
-              <label class="label label--setting" for="taxDFL">НДФЛ</label>
+              <label class="label label--setting" for="taxDFL" title="действующая ставка НДФЛ (налога на доход физических лиц) в %">НДФЛ</label>
             </div>
             <div class="row row-setting">
               <input class="input_start" id="taxDFL" type="text" v-model='taxDFL' required size="8">
@@ -79,6 +79,24 @@
         </div>        
       </div>
       <!-- taxDFL end-->
+
+            <!--single tax rate -->
+      <div class="col-sm-6 col-md-3 col-xs-12  text-center">
+        <div class="row">
+          <div class="col-md-6 wrap-digit_input">
+            <div class="row row-setting justify-content-center">
+              <label class="label label--setting" for="taxEN" title="действующая ставка Единого налога в %">Ставка ЕН %</label>
+            </div>
+            <div class="row row-setting">
+              <input class="input_start" id="taxEN" type="text" v-model='rateEN' required size="8">
+            </div>
+          </div>
+          <div class="col-md-6 wrap-digit_val">
+            <div class="digit_val digit_val--start">{{taxEN}} грн</div>
+          </div>
+        </div>        
+      </div>
+      <!-- single tax rate end-->
 
 
 
@@ -364,10 +382,27 @@
 
     <div class="row">
       <div class="col-5  col-tax-item">
+        <div class="title__range">ЕСВ ФЛП в месяц</div>
+      </div>
+      <div class="col-5 offset-2 col-tax-item">
+      <div class="digit_val">{{esvFlp}} грн.</div>
+      </div>
+    </div>
+    <div class="row">  
+      <div class="col-5 col-tax-item">
+      <div class="title__range">ЕСВ ФЛП за год </div>
+      </div>
+      <div class="col-5 offset-2 col-tax-item">
+      <div class="digit_val">{{(esvFlp*12).toFixed(2)}} грн.</div>
+      </div>
+    </div>    
+
+    <div class="row">
+      <div class="col-5  col-tax-item">
         <div class="title__range">НДФЛ на работников в месяц</div>
       </div>
       <div class="col-5 offset-2 col-tax-item">
-      <div class="digit_val">{{salary*employee*taxDFL/100}} грн.</div>
+      <div class="digit_val">{{dfl}} грн.</div>
       </div>
     </div>
     <div class="row">  
@@ -375,7 +410,7 @@
       <div class="title__range">НДФЛ на работников за год </div>
       </div>
       <div class="col-5 offset-2 col-tax-item">
-      <div class="digit_val">{{(salary*employee*taxDFL/100*12).toFixed(2)}} грн.</div>
+      <div class="digit_val">{{(dfl*12).toFixed(2)}} грн.</div>
       </div>
     </div>
 
