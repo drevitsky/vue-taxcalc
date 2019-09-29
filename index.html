@@ -120,8 +120,8 @@
     </div>
     
     <div class="row mb-5">
-      <div class="col col-md-6 border-grey">
-        <h3 class="title__range">Валовый доход (оборот за год)</h3>
+      <div class="col-md-6 col-sm-12 border-grey">
+        <h3 class="title__range py-3">Валовый доход (оборот за год)</h3>
         <div class="row">
 
           <div class="col-md-8 border-grey">
@@ -145,9 +145,9 @@
         
       </div>
 
-      <div class="col col-md-6">
+      <div class="col-md-6 col-sm-12">
         <div class="row row__flex">
-          <h3 class="title__range">Тип деятельности</h3>
+          <h3 class="title__range py-3">Тип деятельности</h3>
           
           <!-- <span class="digit_val">{{exmargin}} %</span> -->
         </div>
@@ -167,7 +167,7 @@
       
     <div class="row mb-5"> 
 
-      <div v-if="picked === 'trade'" class="col col-md-6">
+      <div v-if="picked === 'trade'" class="col-md-6">
         <div class="row row__flex">
           <h3 class="title__range">Средняя наценка (маржа)</h3>
           
@@ -176,7 +176,7 @@
         <input class="input__val " type="range" min="0" max="200" v-model='exmargin'>
       </div>
 
-      <div v-if="picked === 'trade'" class="col col-md-6">
+      <div v-if="picked === 'trade'" class="col-md-6 mt-md-0 mt-5">
         <div class="row row__flex">
           <h3 class="title__range">Ваша прибыль</h3>
           
@@ -209,8 +209,8 @@
       </p>
     </div>
     <div class="row mb-5">
-      <div class="col col-md-4 pt-3 text-center border-grey">
-        <div class="row ">
+      <div class="col-md-4 pt-3 text-center border-grey">
+        <div class=" text-center">
           <h3 class="title__range">Наёмные рабочие</h3>
         </div>
         
@@ -236,9 +236,9 @@
         </div>
       </div>
       
-      <div class="col col-md-4 pt-3 text-center border-grey">
+      <div class="col-md-4 pt-3 text-center border-grey">
 
-        <div class="row ">
+        <div class="text-center">
           <h3 class="title__range">Средняя зарплата в месяц (официальная)</h3>
         </div>
         
@@ -261,10 +261,10 @@
           <div class="col-12">
             <div class="row justify-content-around mb-3">
 
-              <div class="col-md-6 ">
+              <div class="col-6 ">
                 <div class="setting__text">Итого за год</div>
               </div>
-              <div class="col-md-6">
+              <div class="col-6">
                 <div class="setting__text setting__text--number">{{salary*employee*12}} грн</div>
               </div>
             </div>
@@ -273,8 +273,8 @@
         </div>
       </div>
 
-      <div class="col col-md-4 pt-3 text-center border-grey">
-        <div class="row ">
+      <div class="col-md-4 pt-3 text-center border-grey">
+        <div class="text-center">
           <h3 class="title__range">Средняя зарплата в месяц (реальная)</h3>
         </div>
         
@@ -296,10 +296,10 @@
         <input class="input__val mb-3" type="range" min="0" max="30000" step="100" v-model='realSalary' >
         <div class="col-12">
             <div class="row justify-content-around mb-3">
-              <div class="col-md-6 ">
+              <div class="col-6 ">
                 <div class="setting__text">Итого за год</div>
               </div>
-              <div class="col-md-6">
+              <div class="col-6">
                 <div class="setting__text setting__text--number">{{realSalary*employee*12}} грн</div>
               </div>
             </div>
